@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "metabolomica-ia"
+    }
+  },
+  "defaultProject": "metabolomica-ia",
+  "cli": {
+    "analytics": false
+  }
 }
