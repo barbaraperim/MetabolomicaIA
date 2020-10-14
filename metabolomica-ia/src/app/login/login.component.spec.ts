@@ -40,7 +40,7 @@ describe('LoginComponent', () => {
   // Classe de equivalencia - E-mail - Informação obrigatória - Válido
   it(`Dado que o usuário insira um e-mail
       Então não haverá erro de required no campo`, () => {
-      const email = component.form.controls['email'];
+      const email = component.loginForm.controls['email'];
       email.setValue('email');
   
       const errors = email.errors || {};
@@ -52,7 +52,7 @@ describe('LoginComponent', () => {
   // Classe de equivalencia - E-mail - Informação obrigatória - Inválido
   it(`Dado que o usuário NÃO insira um e-mail
       Então haverá erro de required no campo`, () => {
-      const email = component.form.controls['email'];
+      const email = component.loginForm.controls['email'];
       email.setValue(null);
   
       const errors = email.errors || {};
@@ -64,7 +64,7 @@ describe('LoginComponent', () => {
   // Classe de equivalencia - E-mail - Formado por chars a-Z 0-9 - Inválido
   it(`Dado que o usuário insira um e-mail com caracteres invalidos
       Então haverá erro de pattern no campo`, () => {
-      const email = component.form.controls['email'];
+      const email = component.loginForm.controls['email'];
       email.setValue('3M4i$&L@teste.com');
   
       const errors = email.errors || {};
@@ -76,7 +76,7 @@ describe('LoginComponent', () => {
   // Classe de equivalencia - E-mail - Existir @ entre chars - Inválido
   it(`Dado que o usuário insira um e-mail sem @
       Então haverá erro de pattern no campo`, () => {
-      const email = component.form.controls['email'];
+      const email = component.loginForm.controls['email'];
       email.setValue('3M4i$&Lteste.com');
   
       const errors = email.errors || {};
@@ -88,7 +88,7 @@ describe('LoginComponent', () => {
   // Classe de equivalencia - E-mail - Finalizar com ponto + 2 a 4 chars - Inválido t < 2
   it(`Dado que o usuário insira um e-mail finalizado com um ponto e menos de um char em seguida
       Então haverá erro de pattern no campo`, () => {
-      const email = component.form.controls['email'];
+      const email = component.loginForm.controls['email'];
       email.setValue('3M4i$&L@teste.c');
   
       const errors = email.errors || {};
@@ -100,7 +100,7 @@ describe('LoginComponent', () => {
   // Classe de equivalencia - E-mail - Finalizar com ponto + 2 a 4 chars - Inválido t > 4
   it(`Dado que o usuário insira um e-mail finalizado com um ponto e mais de 4 char em seguida
       Então haverá erro de required no campo`, () => {
-      const email = component.form.controls['email'];
+      const email = component.loginForm.controls['email'];
       email.setValue('3M4i$&L@teste.comcom');
   
       const errors = email.errors || {};
@@ -112,7 +112,7 @@ describe('LoginComponent', () => {
   // Classe de equivalencia - E-mail - Formatação - Válido
   it(`Dado que o usuário insira um e-mail com a formatação correta
       Então não haverá erro no campo`, () => {
-      const email = component.form.controls['email'];
+      const email = component.loginForm.controls['email'];
       email.setValue('teste@teste.com');
   
       const errors = email.errors || {};
@@ -124,7 +124,7 @@ describe('LoginComponent', () => {
   // Classe de equivalencia - Senha - Informação obrigatória - Válido
   it(`Dado que o usuário insira uma senha
       Então não haverá erro de required no campo`, () => {
-      const password = component.form.controls['password'];
+      const password = component.loginForm.controls['password'];
       password.setValue('password');
   
       const errors = password.errors || {};
@@ -136,7 +136,7 @@ describe('LoginComponent', () => {
   // Classe de equivalencia - Senha - Informação obrigatória - Inválido - t < 1
   it(`Dado que o usuário NÃO insira uma senha
       Então haverá erro de required no campo`, () => {
-      const password = component.form.controls['password'];
+      const password = component.loginForm.controls['password'];
       password.setValue(null);
   
       const errors = password.errors || {};
@@ -148,7 +148,7 @@ describe('LoginComponent', () => {
   // Classe de equivalencia - Senha - entre 1 e 30 caracteres - Válido
   it(`Dado que o usuário NÃO insira uma senha
       Então haverá erro de required no campo`, () => {
-      const password = component.form.controls['password'];
+      const password = component.loginForm.controls['password'];
       password.setValue('12345');
   
       const errors = password.errors || {};
@@ -160,7 +160,7 @@ describe('LoginComponent', () => {
   // Classe de equivalencia - Senha - entre 1 e 30 caracteres - Inválido - t > 30
   it(`Dado que o usuário NÃO insira uma senha
     Então não haverá erro de required no campo`, () => {
-    const password = component.form.controls['password'];
+    const password = component.loginForm.controls['password'];
     password.setValue('1'.repeat(31));
 
     const errors = password.errors || {};
@@ -176,9 +176,9 @@ describe('LoginComponent', () => {
     spyOn(authService, 'signIn').and.returnValue(Promise.resolve());
     spyOn(matSnackBar, 'open');
 
-    const email = component.form.controls['email'];
+    const email = component.loginForm.controls['email'];
     email.setValue('test@email.com');
-    const password = component.form.controls['password'];
+    const password = component.loginForm.controls['password'];
     password.setValue('123456');
 
     const btn = fixture.nativeElement.querySelector('.button--login');
@@ -195,9 +195,9 @@ describe('LoginComponent', () => {
     spyOn(authService, 'signIn').and.returnValue(Promise.reject(new Error('fail')));
     spyOn(matSnackBar, 'open');
 
-    const email = component.form.controls['email'];
+    const email = component.loginForm.controls['email'];
     email.setValue('test@email.com');
-    const password = component.form.controls['password'];
+    const password = component.loginForm.controls['password'];
     password.setValue('123456');
 
     const btn = fixture.nativeElement.querySelector('.button--login');

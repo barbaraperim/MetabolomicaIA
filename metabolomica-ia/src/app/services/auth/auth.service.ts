@@ -24,10 +24,6 @@ export class AuthService {
     });
   }
 
-  get isUserAnonymousLoggedIn(): boolean {
-    return (this.userData != null) ? this.userData.user.isAnonymous : false;
-  }
-
   get currentUserId(): string {
     return (this.userData !== null) ? this.userData.uid : '';
   }
@@ -38,26 +34,13 @@ export class AuthService {
       .signInWithEmailAndPassword(email, password)
       .then((result) => {
         this.ngZone.run(() => {
-          this.router.navigate(['formulario']);
+          this.router.navigate(['dashboard']);
         });
         this.setUserData(result.user);
       })
       .catch((error) => {
         throw error;
       });
-  }
-
-  // Sign in anonymously
-  anonymousLogin() {
-    return this.afAuth.signInAnonymously()
-      .then((user) => {
-        this.userData = user;
-        this.ngZone.run(() => {
-          this.router.navigate(['formulario']);
-        });
-      }
-    )
-      .catch(error => console.log(error));
   }
 
   // Sign up with email/password
@@ -77,7 +60,7 @@ export class AuthService {
   // Send email verification when new user sign up
   async sendVerificationMail() {
     return (await this.afAuth.currentUser).sendEmailVerification().then(() => {
-      this.router.navigate(['confirmacao-email']);
+      this.router.navigate(['verification-mail']);
     });
   }
 
@@ -93,8 +76,8 @@ export class AuthService {
 
   // Returns true when user is looged in and email is verified
   get isLoggedIn(): boolean {
-    const user = JSON.parse(localStorage.getItem('user'));
-    return (user !== null && user.emailVerified !== false) || this.isUserAnonymousLoggedIn;
+    const user = JSON.parse(localStorage.getItem('user'));    
+    return (user !== null && user.emailVerified !== false);
   }
 
   /* Setting up user data when sign in with username/password, sign up with username/password and sign in with social auth
@@ -116,7 +99,7 @@ export class AuthService {
   signOut() {
     return this.afAuth.signOut().then(() => {
       localStorage.removeItem('user');
-      this.router.navigate(['sign-in']);
+      this.router.navigate(['login']);
     });
   }
 }
