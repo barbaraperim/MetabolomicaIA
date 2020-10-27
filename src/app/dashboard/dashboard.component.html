@@ -1,1 +1,15 @@
-<p>dashboard works!</p>
+<div class="dashboard-container">
+    <div class="form-group">
+        <mat-label class="input-file_label" for="file">Choose File</mat-label>
+        <input type="file"
+               id="file"
+               (change)="handleFileInput($event.target.files)"
+               multiple>
+    </div>
+    
+    <div class="uploaded">
+        <mat-label>Arquivos Uploaded</mat-label>
+        <p *ngFor="let file of fileToUpload"> {{file.name}} </p>
+    </div>
+    <button mat-raised-button class="submit-button"> Submit </button>
+</div>
